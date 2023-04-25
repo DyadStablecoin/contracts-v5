@@ -26,9 +26,8 @@ contract VaultFactory is IVaultFactory {
 
   /// @inheritdoc IVaultFactory
   function deploy(
-      address       collat, 
-      string memory collatSymbol,
-      address       collatOracle
+      address collat, 
+      address collatOracle
   ) external 
     returns (address) {
       if (collat       == address(0))   revert InvalidCollateral();

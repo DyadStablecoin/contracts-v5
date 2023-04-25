@@ -10,7 +10,7 @@ import {Parameters} from "../../src/Parameters.sol";
 import {DNft} from "../../src/core/DNft.sol";
 import {VaultFactory} from "../../src/core/VaultFactory.sol";
 import {Vault} from "../../src/core/Vault.sol";
-import {VaultsManager} from "../../src/core/VaultsManager.sol";
+import {VaultsManager} from "../../src/composing/VaultsManager.sol";
 import {ZoraMock} from "../../test/ZoraMock.sol";
 
 contract DeployBase is Script, Parameters {
@@ -27,12 +27,15 @@ contract DeployBase is Script, Parameters {
 
       ZoraMock     zora    = new ZoraMock();
       DNft         dNft    = new DNft(ERC721(zora));
-      VaultFactory factory = new VaultFactory(dNft);
       dNft.transferOwnership(address(_owner));
+
+      VaultsManager vaultsManager = new VaultsManager(dNft);
+      Dyad          dyad          = new Dyad(vaultsManager);
+
+      VaultFactory factory = new VaultFactory(dNft, dyad);
 
       address vault = factory.deploy(
         _collat,
-        _collatSymbol, 
         _collatOracle 
       );
 

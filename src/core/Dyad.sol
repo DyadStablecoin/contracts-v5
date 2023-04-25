@@ -10,26 +10,24 @@ contract Dyad is ERC20 {
 
   error Unauthorized();
 
-  constructor(address _vaultsManager)
+  constructor(VaultsManager _vaultsManager)
     ERC20("DYAD Stablecoin", "DYAD", 18) {
       vaultsManager = VaultsManager(_vaultsManager);
   }
 
   function mint(
       address to,
-      uint    amount,
-      address vault
+      uint    amount
   ) external {
-      if (vaultsManager.vaultVotes(vault) < 800) revert Unauthorized();
+      if (vaultsManager.vaultVotes(msg.sender) < 800) revert Unauthorized();
       _mint(to, amount);
   }
 
   function burn(
       address from,
-      uint    amount, 
-      address vault
+      uint    amount
   ) external {
-      if (vaultsManager.vaultVotes(vault) < 800) revert Unauthorized();
+      if (vaultsManager.vaultVotes(msg.sender) < 800) revert Unauthorized();
       _burn(from, amount);
   }
 }

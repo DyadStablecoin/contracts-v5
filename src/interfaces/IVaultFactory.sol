@@ -18,13 +18,11 @@ interface IVaultFactory {
    * @dev Emits:
    *      - Deploy(address indexed vault, address indexed dyad)
    * @param collat Address of the ERC-20 token to use as collateral
-   * @param collatSymbol     Symbol of the ERC-20 token to use as collateral
    * @param collatOracle     Address of the Oracle to use
    * @return vault     Address of the deployed Vault
    */
   function deploy(
     address       collat,
-    string memory collatSymbol,
     address       collatOracle
   ) external 
     returns (address);
