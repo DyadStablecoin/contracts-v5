@@ -14,7 +14,6 @@ contract DNft is ERC721Enumerable, Owned, IDNft {
 
   uint    public insiderMints; // Number of insider mints
   uint    public publicMints;  // Number of public mints
-  address public factory;
 
   ERC721 public immutable tickets;
 
@@ -101,16 +100,6 @@ contract DNft is ERC721Enumerable, Owned, IDNft {
           id2permission[id][operator].lastUpdated > id2lastOwnershipChange[id]
         )
       );
-  }
-
-  /// @inheritdoc IDNft
-  function setFactory(address _factory) 
-    external 
-      onlyOwner 
-    {
-      if (factory != address(0)) revert AlreadySet();
-      factory = _factory;
-      emit SetFactory(_factory);
   }
 
   // We have to set `lastOwnershipChange` in order to reset permissions

@@ -85,13 +85,4 @@ interface IDNft {
    * @return True if `operator` has permission to act on behalf of `id`
    */
   function hasPermission(uint id, address operator) external view returns (bool);
-
-  /**
-   * @notice Set the factory address
-   * @dev Will revert:
-   *      - If `msg.sender` is not the owner of the dNFT contract
-   *      - If factory was already set before
-   * @param factory Address of the factory
-   */
-  function setFactory(address factory) external;
 }
