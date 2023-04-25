@@ -24,8 +24,8 @@ contract DeployBase is Script, Parameters {
     returns (address, address, address, address, address) {
       vm.startBroadcast();
 
-      ZoraMock     zora    = new ZoraMock();
-      DNft         dNft    = new DNft(ERC721(zora));
+      ZoraMock zora = new ZoraMock();
+      DNft     dNft = new DNft(ERC721(zora));
       dNft.transferOwnership(address(_owner));
 
       VaultsManager vaultsManager = new VaultsManager(dNft);
