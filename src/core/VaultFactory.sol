@@ -10,12 +10,19 @@ import {IVaultFactory} from "../interfaces/IVaultFactory.sol";
 
 contract VaultFactory is IVaultFactory {
   DNft public immutable dNft;
+  Dyad public immutable dyad;
 
   // collateral => oracle => vault
   mapping(address => mapping(address => address)) public vaults;
   mapping(address => bool)                        public isVault;
 
-  constructor(DNft _dNft) { dNft = _dNft; }
+  constructor(
+    DNft _dNft,
+    Dyad _dyad
+  ) { 
+    dNft = _dNft; 
+    dyad = _dyad;
+  }
 
   /// @inheritdoc IVaultFactory
   function deploy(
@@ -32,7 +39,7 @@ contract VaultFactory is IVaultFactory {
       Vault vault = new Vault(
         address(dNft), 
         collat,
-        collatSymbol,
+        address(dyad),
         collatOracle
       );
 

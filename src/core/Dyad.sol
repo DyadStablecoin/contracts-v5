@@ -5,18 +5,13 @@ import {Owned} from "@solmate/src/auth/Owned.sol";
 import {ERC20} from "@solmate/src/tokens/ERC20.sol";
 import {VaultsManager} from "../composing/VaultsManager.sol";
 
-contract Dyad is ERC20, Owned {
+contract Dyad is ERC20 {
   VaultsManager public immutable vaultsManager;
 
   error Unauthorized();
 
-  constructor(
-    string memory name, 
-    string memory symbol, 
-    address owner, 
-    address _vaultsManager
-  ) ERC20(name, symbol, 18) 
-    Owned(owner) {
+  constructor(address _vaultsManager)
+    ERC20("DYAD Stablecoin", "DYAD", 18) {
       vaultsManager = VaultsManager(_vaultsManager);
   }
 
@@ -25,7 +20,7 @@ contract Dyad is ERC20, Owned {
       uint    amount,
       address vault
   ) external {
-      if (vaultsManager.vaultVotes(vault) < 40) revert Unauthorized();
+      if (vaultsManager.vaultVotes(vault) < 800) revert Unauthorized();
       _mint(to, amount);
   }
 
@@ -34,7 +29,7 @@ contract Dyad is ERC20, Owned {
       uint    amount, 
       address vault
   ) external {
-      if (vaultsManager.vaultVotes(vault) < 40) revert Unauthorized();
+      if (vaultsManager.vaultVotes(vault) < 800) revert Unauthorized();
       _burn(from, amount);
   }
 }

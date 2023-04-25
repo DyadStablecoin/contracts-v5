@@ -38,20 +38,15 @@ contract Vault is IVault {
   }
 
   constructor(
-      address       _dNft, 
-      address       _collat,       // collateral
-      string memory _collatSymbol, 
-      address       _collatOracle  // collat/USD chainlink oracle
+      address _dNft, 
+      address _collat,       // collateral
+      address _dyad, 
+      address _collatOracle  // collat/USD chainlink oracle
   ) {
       dNft   = DNft(_dNft);
       collat = ERC20(_collat); 
+      dyad   = Dyad(_dyad);
       oracle = IAggregatorV3(_collatOracle);
-
-      dyad = new Dyad(
-        string.concat(_collatSymbol, "DYAD-"),
-        string.concat("d", _collatSymbol), 
-        address(this)
-      );
   }
 
   /// @inheritdoc IVault
