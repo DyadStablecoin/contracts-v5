@@ -15,10 +15,9 @@ import {ZoraMock} from "../../test/ZoraMock.sol";
 
 contract DeployBase is Script, Parameters {
   function deploy(
-      address       _owner,
-      address       _collat,
-      string memory _collatSymbol, 
-      address       _collatOracle
+      address _owner,
+      address _collat,
+      address _collatOracle
   )
     public 
     payable 

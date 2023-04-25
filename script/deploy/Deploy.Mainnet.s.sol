@@ -10,7 +10,6 @@ contract DeployMainnet is Script, Parameters {
       new DeployBase().deploy(
         MAINNET_OWNER,
         MAINNET_WETH,
-        MAINNET_WETH_SYMBOL, 
         MAINNET_ORACLE
       );
   }
