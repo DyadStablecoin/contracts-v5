@@ -17,7 +17,8 @@ contract DeployBase is Script, Parameters {
   function deploy(
       address _owner,
       address _collat,
-      address _collatOracle
+      address _collatOracle, 
+      uint    _minVotes
   )
     public 
     payable 
@@ -28,7 +29,7 @@ contract DeployBase is Script, Parameters {
       DNft     dNft = new DNft(ERC721(zora));
       dNft.transferOwnership(address(_owner));
 
-      VaultsManager vaultsManager = new VaultsManager(dNft);
+      VaultsManager vaultsManager = new VaultsManager(dNft, _minVotes);
       Dyad          dyad          = new Dyad(vaultsManager);
 
       VaultFactory factory = new VaultFactory(dNft, dyad);

@@ -39,7 +39,8 @@ contract BaseTest is Test, Parameters {
     ) = deployBase.deploy(
       MAINNET_OWNER,
       MAINNET_WETH,
-      address(oracleMock)
+      address(oracleMock),
+      MAINNET_MIN_VOTES
     );
     dNft     = DNft(_dNft);
     dyad     = Dyad(_dyad);

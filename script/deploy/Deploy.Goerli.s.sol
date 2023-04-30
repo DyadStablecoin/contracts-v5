@@ -10,7 +10,8 @@ contract DeployGoerli is Script, Parameters {
       new DeployBase().deploy(
         GOERLI_OWNER,
         GOERLI_WETH, 
-        GOERLI_ORACLE
+        GOERLI_ORACLE, 
+        GOERLI_MIN_VOTES
       );
   }
 }

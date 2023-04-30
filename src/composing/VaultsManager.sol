@@ -5,20 +5,21 @@ import {DNft} from "../core/DNft.sol";
 import {IVaultsManager} from "../interfaces/IVaultsManager.sol";
 
 contract VaultsManager is IVaultsManager {
-  DNft         public immutable dNft;
+  DNft public immutable dNft;
 
   mapping(address => bool)                  public vaults;
   mapping(address => uint)                  public vaultVotes;
   mapping(uint => mapping(address => bool)) public hasVoted;
 
-  uint public constant MIN_VOTES = 200; // will change
+  uint public immutable MIN_VOTES; // will change
 
   modifier isNftOwner(uint id) {
     if (dNft.ownerOf(id) != msg.sender) revert NotOwner(); _;
   }
 
-  constructor(DNft _dNft) {
-    dNft = _dNft;
+  constructor(DNft _dNft, uint _minVotes) {
+    dNft      = _dNft;
+    MIN_VOTES = _minVotes;
   }
 
   /// @inheritdoc IVaultsManager
