@@ -17,7 +17,7 @@ contract Vault is IVault {
   using SafeCast          for int;
   using FixedPointMathLib for uint;
 
-  uint public constant MIN_COLLATERIZATION_RATIO = 3e18; // 300%
+  uint public constant MIN_COLLATERIZATION_RATIO = 2e18; // 200%
 
   mapping(uint => uint) public id2collat; // nft id => collateral
   mapping(uint => uint) public id2dyad;   // nft id => dyad 
