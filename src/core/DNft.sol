@@ -39,16 +39,12 @@ contract DNft is ERC721Enumerable, Owned, IDNft {
   }
 
   /// @inheritdoc IDNft
-  function mintNft(
-    uint    ticket,
-    address to
-  )
+  function mintNft(address to)
     external 
+    payable
     returns (uint) {
-      if (tickets.ownerOf(ticket) != msg.sender) revert NotTicketOwner();
-      if (usedTickets[ticket])                   revert UsedTicket();
-      if (++publicMints > PUBLIC_MINTS)          revert PublicMintsExceeded();
-      usedTickets[ticket] = true;
+      if (++publicMints > PUBLIC_MINTS) revert PublicMintsExceeded();
+      // TODO: add price
       return _mintNft(to);
   }
 

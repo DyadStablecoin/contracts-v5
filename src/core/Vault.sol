@@ -21,6 +21,9 @@ contract Vault is IVault {
 
   mapping(uint => uint) public id2collat; // nft id => collateral
   mapping(uint => uint) public id2dyad;   // nft id => dyad 
+  mapping(uint => uint) public id2xp;     // nft id => xp 
+
+  uint public totalXp;
 
   DNft          public dNft;
   Dyad          public dyad;
