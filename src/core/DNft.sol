@@ -9,11 +9,12 @@ import {IDNft} from "../interfaces/IDNft.sol";
 contract DNft is ERC721Enumerable, Owned, IDNft {
   using SafeTransferLib for address;
 
-  uint public constant INSIDER_MINTS = 300; 
-  uint public constant PUBLIC_MINTS  = 1700; 
+  uint public constant INSIDER_MINTS  = 300;
+  uint public constant START_PRICE    = 0.1   ether;
+  uint public constant PRICE_INCREASE = 0.001 ether;
 
-  uint    public insiderMints; // Number of insider mints
-  uint    public publicMints;  // Number of public mints
+  uint public insiderMints; // Number of insider mints
+  uint public publicMints;  // Number of public mints
 
   ERC721 public immutable tickets;
 
@@ -43,8 +44,8 @@ contract DNft is ERC721Enumerable, Owned, IDNft {
     external 
     payable
     returns (uint) {
-      if (++publicMints > PUBLIC_MINTS) revert PublicMintsExceeded();
-      // TODO: add price
+      if (msg.value < START_PRICE + (PRICE_INCREASE * publicMints)) revert InsufficientFunds();
+      publicMints++;
       return _mintNft(to);
   }
 

@@ -10,8 +10,8 @@ interface IDNft {
 
   error NotOwner             ();
   error NotFactory           ();
-  error PublicMintsExceeded  ();
   error InsiderMintsExceeded ();
+  error InsufficientFunds    ();
   error NotLiquidator        ();
   error AlreadySet           ();
   error UsedTicket           ();
@@ -27,7 +27,6 @@ interface IDNft {
    *
    * Emits a {NFTMinted} event on successful execution.
    *
-   * @param ticket The ticket ID to be used for minting the NFT.
    * @param to The address to which the minted NFT will be transferred.
    * @return id The ID of the minted NFT.
    *
@@ -35,7 +34,7 @@ interface IDNft {
    * Throws a {UsedTicket} error if the ticket has already been used to mint an NFT.
    * Throws a {PublicMintsExceeded} error if the number of public mints has already reached the defined limit.
    */
-  function mintNft(uint ticket, address to) external returns (uint id);
+  function mintNft(address to) external payable returns (uint id);
 
   /**
    * @notice Mint new insider DNft to `to` 
